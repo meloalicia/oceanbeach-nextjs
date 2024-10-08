@@ -1,5 +1,6 @@
-import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { Entry } from "contentful";
+import ComponentRenderer from "../components/ComponentRenderer";
+import { ContentModelNames } from "../constants/contentful";
 import { getEntry } from "../lib/contentfulClient";
 
 async function getHomePageData() {
@@ -9,10 +10,20 @@ async function getHomePageData() {
 export default async function Home() {
   const homePageData = await getHomePageData();
   const pageBody = homePageData?.fields?.pageBody as Entry[];
-  const welcomeTitle = documentToReactComponents(
-    // @ts-expect-error aaa
-    pageBody?.[0]?.fields.welcomeTitle
+
+  return (
+    <>
+      {pageBody.map(({ fields, sys }) => {
+        const componentId = sys.contentType.sys.id as ContentModelNames;
+        const componentFields = fields;
+        return (
+          <ComponentRenderer
+            key={componentId}
+            componentName={componentId}
+            fields={componentFields}
+          />
+        );
+      })}
+    </>
   );
-  console.log(pageBody);
-  return <div>{welcomeTitle}</div>;
 }
