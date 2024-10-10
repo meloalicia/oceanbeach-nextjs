@@ -1,9 +1,19 @@
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
+import { Document } from "@contentful/rich-text-types";
+// import Image from "next/image";
+
 type HeroBannerProps = {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  fields: any;
+  fields: {
+    welcomeTitle: Document;
+    informativeText: Document;
+  };
 };
 
 export default function HeroBanner({ fields }: HeroBannerProps) {
-  return <div>{documentToReactComponents(fields.welcomeTitle)}</div>;
+  return (
+    <div>
+      {documentToReactComponents(fields.welcomeTitle)}
+      <div>{documentToReactComponents(fields.informativeText)}</div>
+    </div>
+  );
 }

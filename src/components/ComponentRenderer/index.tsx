@@ -1,18 +1,17 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { ContentModelNames } from "../../constants/contentful";
-import HeroBanner from "../HeroBanner";
+import { componentFactory, ContentModelNames } from "../../constants/contentful";
 
-type ComponentRendererProps = {
-  componentName: ContentModelNames;
-  [key: string]: any;
+type RestComponentProps = {
+  [key: string]: unknown;
 };
 
-export const componentMapper: Record<ContentModelNames, React.ComponentType<any>> = {
-  [ContentModelNames.HeroBanner]: HeroBanner,
+type ComponentRendererProps = RestComponentProps & {
+  componentName: ContentModelNames;
 };
 
 export default function ComponentRenderer({ componentName, ...props }: ComponentRendererProps) {
-  const ComponentToRender = componentMapper[componentName];
+  const ComponentToRender = componentFactory[
+    componentName
+  ] as React.ComponentType<RestComponentProps>;
 
   return (
     <>
