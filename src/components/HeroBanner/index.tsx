@@ -16,7 +16,6 @@ type HeroBannerProps = {
 export default function HeroBanner(props: HeroBannerProps) {
   const { welcomeTitle, informativeText, image } = props;
 
-  // Formata o URL da imagem
   const imageUrl = image.url.startsWith("//") ? `https:${image.url}` : image.url;
 
   return (
