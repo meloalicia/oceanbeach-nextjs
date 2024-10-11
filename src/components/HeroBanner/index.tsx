@@ -1,19 +1,36 @@
-import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
-import { Document } from "@contentful/rich-text-types";
-// import Image from "next/image";
+import { ReactNode } from "react";
+import styles from "../HeroBanner/HeroBanner.module.scss";
 
-type HeroBannerProps = {
-  fields: {
-    welcomeTitle: Document;
-    informativeText: Document;
-  };
+type HeroBannerImage = {
+  url: string;
+  altText: string;
+  title: string;
 };
 
-export default function HeroBanner({ fields }: HeroBannerProps) {
+type HeroBannerProps = {
+  welcomeTitle: ReactNode;
+  informativeText: ReactNode;
+  image: HeroBannerImage;
+};
+
+export default function HeroBanner(props: HeroBannerProps) {
+  const { welcomeTitle, informativeText, image } = props;
+
+  // Formata o URL da imagem
+  const imageUrl = image.url.startsWith("//") ? `https:${image.url}` : image.url;
+
   return (
-    <div>
-      {documentToReactComponents(fields.welcomeTitle)}
-      <div>{documentToReactComponents(fields.informativeText)}</div>
+    <div
+      className={styles.container}
+      style={{
+        backgroundImage: `url(${imageUrl})`,
+        height: "24rem",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
+      {welcomeTitle}
+      <div className={styles.informativeText}>{informativeText}</div>
     </div>
   );
 }
