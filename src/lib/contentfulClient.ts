@@ -1,5 +1,8 @@
 import * as contentful from "contentful";
 import { Entry } from "contentful";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const client = contentful.createClient({
   space: "ukn397k0fl34",
