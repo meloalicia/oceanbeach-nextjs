@@ -5,12 +5,29 @@ import { getEntry } from "../lib/contentfulClient";
 import { ContentfulDataMapper } from "../mappers/ContentfulDataMapper";
 
 async function getHomePageData() {
-  return getEntry("1z0jsUHiOcSilS5FJenNmX");
+  try {
+    const homePageEntry = await getEntry("1z0jsUHiOcSilS5FJenNmX");
+    if (!homePageEntry) {
+      console.error("Entrada não encontrada ou retorno vazio.");
+      return null;
+    }
+    console.log(homePageEntry);
+    return homePageEntry;
+  } catch (error) {
+    console.error("Erro ao buscar a entrada do Contentful:", error);
+    return null;
+  }
 }
 
 export default async function Home() {
   const homePageData = await getHomePageData();
-  const pageBody = homePageData?.fields?.pageBody as Entry[];
+
+  if (!homePageData || !homePageData.fields || !homePageData.fields.pageBody) {
+    console.error("Dados da página inicial não foram carregados corretamente.");
+    return <div>Erro ao carregar os dados da página inicial.</div>;
+  }
+
+  const pageBody = homePageData.fields.pageBody as Entry[];
 
   return (
     <>

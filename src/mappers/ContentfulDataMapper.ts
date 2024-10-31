@@ -5,7 +5,7 @@ import { title } from "process";
 import { ContentModelNames } from "../constants/contentful";
 import { ContentfulImage } from "../types/contentful";
 
-interface CarouselItem {
+interface carouselImage {
   title: string;
   image: string;
   description: Document;
@@ -60,15 +60,17 @@ export class ContentfulDataMapper {
 
   private mapCarouselData() {
     const { fields } = this.componentData;
-    const carouselItems = fields.carouselItems as Entry[] | null | undefined;
+    const carouselImages = fields.carouselImage as Entry[] | null | undefined;
+    console.log(fields);
 
-    if (!carouselItems) {
+    if (!carouselImages) {
       console.warn("Nenhum item encontrado no carrossel");
       return { items: [] };
     }
 
-    const items: CarouselItem[] = carouselItems.map((item: Entry) => {
-      const imageField = item.fields.image as { fields?: { file?: { url?: string } } } | undefined;
+    const items: carouselImage[] = carouselImages.map((item: Entry) => {
+      const imageField = item.fields.images as { fields?: { file?: { url?: string } } } | undefined;
+      console.log(carouselImages);
 
       if (
         !imageField ||

@@ -3,7 +3,7 @@ import HeroBanner from "../components/HeroBanner";
 
 export enum ContentModelNames {
   HeroBanner = "heroBanner",
-  Carousel = "carousel",
+  Carousel = "carouselComponent",
 }
 
 export const componentFactory = {
