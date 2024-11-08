@@ -1,15 +1,8 @@
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { Document } from "@contentful/rich-text-types";
 import { Entry } from "contentful";
-import { title } from "process";
 import { ContentModelNames } from "../constants/contentful";
 import { ContentfulImage } from "../types/contentful";
-
-interface carouselImage {
-  title: string;
-  image: string;
-  description: Document;
-}
 
 export class ContentfulDataMapper {
   private readonly componentData: Entry;
@@ -26,7 +19,7 @@ export class ContentfulDataMapper {
       case ContentModelNames.HeroBanner:
         return this.mapHeroBannerData();
       case ContentModelNames.Carousel:
-        return this.mapCarouselData();
+        return this.mapCarouselComponent();
       default:
         console.warn(`Componente desconhecido: ${componentType}`);
         return null;
@@ -45,56 +38,38 @@ export class ContentfulDataMapper {
     };
 
     return {
-      welcomeTitle:
-        typeof welcomeTitle === "object"
-          ? documentToReactComponents(welcomeTitle as Document)
-          : welcomeTitle,
-      informativeText:
-        typeof informativeText === "object"
-          ? documentToReactComponents(informativeText as Document)
-          : informativeText,
+      welcomeTitle: documentToReactComponents(welcomeTitle as Document),
+      informativeText: documentToReactComponents(informativeText as Document),
       image,
-      title: typeof title === "object" ? documentToReactComponents(title as Document) : title,
     };
   }
 
-  private mapCarouselData() {
+  private mapCarouselComponent() {
     const { fields } = this.componentData;
-    const carouselImages = fields.carouselImage as Entry[] | null | undefined;
-    console.log(fields);
+    const { carouselTextInformation, carouselImages } = fields as {
+      carouselTextInformation: Document;
+      carouselImages?: Array<{
+        fields: { file: { url: string }; title: string; description: string };
+      }>;
+    };
 
-    if (!carouselImages) {
-      console.warn("Nenhum item encontrado no carrossel");
-      return { items: [] };
+    if (!carouselImages || !Array.isArray(carouselImages)) {
+      console.warn("carouselImage está indefinido ou não é um array.");
+      return {
+        carouselTextInformation: documentToReactComponents(carouselTextInformation),
+        images: [],
+      };
     }
 
-    const items: carouselImage[] = carouselImages.map((item: Entry) => {
-      const imageField = item.fields.images as { fields?: { file?: { url?: string } } } | undefined;
-      console.log(carouselImages);
-
-      if (
-        !imageField ||
-        !imageField.fields ||
-        !imageField.fields.file ||
-        !imageField.fields.file.url
-      ) {
-        console.warn(`Imagem não encontrada ou inválida para o item com ID: ${item.sys.id}`);
-        return {
-          title: item.fields.title as string,
-          image: "",
-          description: item.fields.description as Document,
-        };
-      }
-
-      return {
-        title: item.fields.title as string,
-        image: imageField.fields.file.url,
-        description: item.fields.description as Document,
-      };
-    });
+    const images = carouselImages.map((images) => ({
+      title: images.fields.title,
+      url: images.fields.file.url,
+      description: images.fields.description,
+    }));
 
     return {
-      items,
+      carouselTextInformation: documentToReactComponents(carouselTextInformation),
+      images,
     };
   }
 }

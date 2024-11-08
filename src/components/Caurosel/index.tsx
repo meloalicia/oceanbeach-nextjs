@@ -5,8 +5,7 @@ import styles from "./Carousel.module.scss";
 type CarouselImage = {
   title: string;
   url: string;
-  description: string;
-  image: string;
+  description: ReactNode;
 };
 
 type CarouselProps = {
@@ -17,15 +16,13 @@ type CarouselProps = {
 export default function Carousel(props: CarouselProps) {
   const { carouselTextInformation, images } = props;
 
-  console.log("Carousel Props:", props);
-
   if (!images || !Array.isArray(images) || images.length === 0) {
     return <p>Nenhum item encontrado no carrossel.</p>;
   }
 
   return (
     <div className={styles.carousel}>
-      <h2 className={styles.carouselTextInformation}>{carouselTextInformation}</h2>
+      <div className={styles.carouselTextInformation}>{carouselTextInformation}</div>
       {images.map((image, index) => {
         const imageUrl = image.url.startsWith("//") ? `https:${image.url}` : image.url;
 
