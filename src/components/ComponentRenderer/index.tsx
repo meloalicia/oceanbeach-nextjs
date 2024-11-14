@@ -1,4 +1,5 @@
 import { componentFactory, ContentModelNames } from "../../constants/contentful";
+import { CarouselProps } from "../Caurosel/index";
 
 type RestComponentProps = {
   [key: string]: unknown;
@@ -15,7 +16,11 @@ export default function ComponentRenderer({ componentName, ...props }: Component
 
   return (
     <>
-      <ComponentToRender {...props} />
+      {componentName === ContentModelNames.Carousel ? (
+        <ComponentToRender {...(props as CarouselProps)} />
+      ) : (
+        <ComponentToRender {...props} />
+      )}
     </>
   );
 }

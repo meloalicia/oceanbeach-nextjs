@@ -61,10 +61,10 @@ export class ContentfulDataMapper {
       };
     }
 
-    const images = carouselImages.map((images) => ({
-      title: images.fields.title,
-      url: images.fields.file.url,
-      description: images.fields.description,
+    const images = carouselImages.map((image) => ({
+      title: image.fields.title,
+      url: image.fields.file.url,
+      description: image.fields.description,
     }));
 
     return {
