@@ -1,5 +1,5 @@
 import { componentFactory, ContentModelNames } from "../../constants/contentful";
-import { CarouselProps } from "../Caurosel/index";
+import { CarouselProps } from "../Carousel/index";
 
 type RestComponentProps = {
   [key: string]: unknown;
