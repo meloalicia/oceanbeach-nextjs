@@ -13,6 +13,7 @@
     "@coreui/coreui": "^5.2.0",
     "contentful": "^11.2.1",
     "dotenv": "^16.4.5",
+    "embla-carousel": "^8.3.1",
     "embla-carousel-react": "^8.3.1",
     "next": "14.2.13",
     "node": "^23.1.0",

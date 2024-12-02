@@ -26,7 +26,7 @@ export default function Carousel(props: CarouselProps) {
   return (
     <div className={styles.carousel}>
       <div className={styles.carouselTextInformation}>{carouselTextInformation}</div>
-      <EmblaCarousel />
+      <EmblaCarousel images={images} />
     </div>
   );
 }
