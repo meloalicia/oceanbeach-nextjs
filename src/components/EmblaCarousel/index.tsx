@@ -2,10 +2,10 @@
 import { EmblaCarouselType, EmblaEventType } from "embla-carousel";
 import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import "./EmblaCarousel.scss";
 import { NextButton, PrevButton, usePrevNextButtons } from "./EmblaCarouselArrowButtons";
-import { DotButton } from "./EmblaCarouselDotButton";
+import { DotButton, useDotButton } from "./EmblaCarouselDotButton";
 
 const TWEEN_FACTOR_BASE = 0.84;
 
@@ -24,30 +24,18 @@ export type EmblaCarouselProps = {
 };
 
 export function EmblaCarousel({ images }: EmblaCarouselProps) {
-  const [emblaRef, emblaApi] = useEmblaCarousel();
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
   const tweenFactor = useRef(0);
-  const [selectedIndex, setSelectedIndex] = useState(0);
-  const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
+
+  const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(emblaApi);
 
   const setTweenFactor = useCallback((emblaApi: EmblaCarouselType) => {
     tweenFactor.current = TWEEN_FACTOR_BASE * emblaApi.scrollSnapList().length;
   }, []);
 
-  const onDotButtonClick = (index: number) => emblaApi?.scrollTo(index);
-
   const { prevBtnDisabled, nextBtnDisabled, onPrevButtonClick, onNextButtonClick } =
     usePrevNextButtons(emblaApi);
 
-  useEffect(() => {
-    if (!emblaApi) return;
-
-    setScrollSnaps(emblaApi.scrollSnapList());
-    const updateSelectedIndex = () => setSelectedIndex(emblaApi.selectedScrollSnap());
-    emblaApi.on("select", updateSelectedIndex);
-    updateSelectedIndex();
-  }, [emblaApi]);
-
-  // Mantendo a lógica da opacidade exatamente como no original.
   const tweenOpacity = useCallback((emblaApi: EmblaCarouselType, eventName?: EmblaEventType) => {
     const engine = emblaApi.internalEngine();
     const scrollProgress = emblaApi.scrollProgress();
@@ -80,6 +68,7 @@ export function EmblaCarousel({ images }: EmblaCarouselProps) {
 
         const tweenValue = 1 - Math.abs(diffToTarget * tweenFactor.current);
         const opacity = numberWithinRange(tweenValue, 0, 1).toString();
+        console.log(slideIndex, opacity);
         emblaApi.slideNodes()[slideIndex].style.opacity = opacity;
       });
     });
@@ -98,25 +87,28 @@ export function EmblaCarousel({ images }: EmblaCarouselProps) {
   }, [emblaApi, setTweenFactor, tweenOpacity]);
 
   return (
-    <div className="embla" ref={emblaRef}>
-      <div className="embla__container">
-        {images.map((image, index) => {
-          const imageUrl = image.url.startsWith("//") ? `https:${image.url}` : image.url;
+    <div className="embla">
+      <div className="embla__viewport" ref={emblaRef}>
+        <div className="embla__container">
+          {images.map((image, index) => {
+            const imageUrl = image.url.startsWith("//") ? `https:${image.url}` : image.url;
 
-          return (
-            <div key={index}>
-              <Image
-                src={imageUrl}
-                alt={image.title}
-                width={800}
-                height={450}
-                priority={index === 0}
-              />
-              <h3>{image.title}</h3>
-              <div className="embla-image-description">{image.description}</div>
-            </div>
-          );
-        })}
+            return (
+              <div key={index} className="embla__slide">
+                <Image
+                  className="embla__slide__img"
+                  src={imageUrl}
+                  alt={image.title}
+                  width={800}
+                  height={450}
+                  priority={index === 0}
+                />
+                <h3>{image.title}</h3>
+                <div className="embla-image-description">{image.description}</div>
+              </div>
+            );
+          })}
+        </div>
       </div>
 
       <div className="embla__controls">
