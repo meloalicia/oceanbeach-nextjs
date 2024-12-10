@@ -9,6 +9,7 @@ export class ContentfulDataMapper {
 
   constructor(componentData: Entry) {
     this.componentData = componentData;
+    console.log("Dados do Contentful:", this.componentData); // Verificar os dados que estamos recebendo
   }
 
   public mapContentfulData() {
@@ -20,6 +21,8 @@ export class ContentfulDataMapper {
         return this.mapHeroBannerData();
       case ContentModelNames.Carousel:
         return this.mapCarouselComponent();
+      case ContentModelNames.CountryBeachCards:
+        return this.mapCountryBeachCards();
       default:
         console.warn(`Componente desconhecido: ${componentType}`);
         return null;
@@ -69,6 +72,38 @@ export class ContentfulDataMapper {
 
     return {
       carouselTextInformation: documentToReactComponents(carouselTextInformation),
+      images,
+    };
+  }
+
+  private mapCountryBeachCards() {
+    const { fields } = this.componentData;
+    const { beachCardsCountryNames, beachCardsTextInformation, countryBeachCardsImages } =
+      fields as {
+        beachCardsCountryNames: Document;
+        beachCardsTextInformation: Document;
+        countryBeachCardsImages?: Array<{
+          fields: { file: { url: string }; title: string; description: string };
+        }>;
+      };
+
+    if (!countryBeachCardsImages || !Array.isArray(countryBeachCardsImages)) {
+      return {
+        beachCardsCountryNames: documentToReactComponents(beachCardsCountryNames),
+        beachCardsTextInformation: documentToReactComponents(beachCardsTextInformation),
+        countryBeachCardsImages: [],
+      };
+    }
+
+    const images = countryBeachCardsImages.map((image) => ({
+      title: image.fields.title,
+      url: image.fields.file.url,
+      description: image.fields.description,
+    }));
+
+    return {
+      beachCardsCountryNames: documentToReactComponents(beachCardsCountryNames),
+      beachCardsTextInformation: documentToReactComponents(beachCardsTextInformation),
       images,
     };
   }

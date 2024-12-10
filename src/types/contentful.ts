@@ -6,5 +6,6 @@ export type ContentfulImage = {
     details: Record<string, unknown>;
     fileName: string;
     contentType: string;
+    altText: string;
   };
 };

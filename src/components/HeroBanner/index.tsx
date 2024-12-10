@@ -20,7 +20,7 @@ export default function HeroBanner(props: HeroBannerProps) {
 
   return (
     <div
-      className={styles.container}
+      className={`${styles.container} ${styles.imageBackground}`}
       style={{
         backgroundImage: `url(${imageUrl})`,
         height: "24rem",
