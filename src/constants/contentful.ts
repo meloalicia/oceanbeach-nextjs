@@ -1,15 +1,15 @@
-import CountryBeachCards from "@/components/CountryBeachCards";
+import CountryBeachCardsContainer from "@/components/CountryBeachCardsContainer";
 import Carousel from "../components/Carousel";
 import HeroBanner from "../components/HeroBanner";
 
 export enum ContentModelNames {
   HeroBanner = "heroBanner",
   Carousel = "carouselComponent",
-  CountryBeachCards = "countryBeachCards",
+  CountryBeachCardsContainer = "countryBeachCardsContainer",
 }
 
 export const componentFactory = {
   [ContentModelNames.HeroBanner]: HeroBanner,
   [ContentModelNames.Carousel]: Carousel,
-  [ContentModelNames.CountryBeachCards]: CountryBeachCards,
+  [ContentModelNames.CountryBeachCardsContainer]: CountryBeachCardsContainer,
 };

@@ -20,7 +20,7 @@ export default function Carousel(props: CarouselProps) {
   console.log("Carousel Props:", props);
 
   if (!images || !Array.isArray(images) || images.length === 0) {
-    return <p>Nenhum item encontrado no carrossel.</p>;
+    //return <p>Nenhum item encontrado no carrossel.</p>;
   }
 
   return (

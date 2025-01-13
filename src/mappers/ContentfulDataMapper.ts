@@ -9,7 +9,7 @@ export class ContentfulDataMapper {
 
   constructor(componentData: Entry) {
     this.componentData = componentData;
-    console.log("Dados do Contentful:", this.componentData); // Verificar os dados que estamos recebendo
+    console.log("Dados do Contentful:", this.componentData);
   }
 
   public mapContentfulData() {
@@ -21,8 +21,8 @@ export class ContentfulDataMapper {
         return this.mapHeroBannerData();
       case ContentModelNames.Carousel:
         return this.mapCarouselComponent();
-      case ContentModelNames.CountryBeachCards:
-        return this.mapCountryBeachCards();
+      case ContentModelNames.CountryBeachCardsContainer:
+        return this.mapCountryBeachCardsContainer();
       default:
         console.warn(`Componente desconhecido: ${componentType}`);
         return null;
@@ -76,35 +76,44 @@ export class ContentfulDataMapper {
     };
   }
 
-  private mapCountryBeachCards() {
+  private mapCountryBeachCardsContainer() {
     const { fields } = this.componentData;
-    const { beachCardsCountryNames, beachCardsTextInformation, countryBeachCardsImages } =
-      fields as {
-        beachCardsCountryNames: Document;
-        beachCardsTextInformation: Document;
-        countryBeachCardsImages?: Array<{
-          fields: { file: { url: string }; title: string; description: string };
-        }>;
-      };
+    const { cards } = fields as unknown as {
+      cards: Array<{
+        fields: {
+          title: string;
+          text: Document;
+          image: {
+            fields: { file: { url: string }; description: string };
+          };
+        };
+      }>;
+    };
 
-    if (!countryBeachCardsImages || !Array.isArray(countryBeachCardsImages)) {
+    console.log("teste", cards);
+
+    if (!cards || !Array.isArray(cards)) {
+      console.warn("cards está ausente ou não é um array.");
       return {
-        beachCardsCountryNames: documentToReactComponents(beachCardsCountryNames),
-        beachCardsTextInformation: documentToReactComponents(beachCardsTextInformation),
-        countryBeachCardsImages: [],
+        cards: [],
       };
     }
 
-    const images = countryBeachCardsImages.map((image) => ({
-      title: image.fields.title,
-      url: image.fields.file.url,
-      description: image.fields.description,
+    const transformedCards = cards.map((card) => ({
+      title: card.fields?.title || "Título indisponível",
+      text: card.fields?.text ? documentToReactComponents(card.fields.text) : null,
+      image: {
+        url: card.fields?.image?.fields?.file?.url?.startsWith("//")
+          ? `https:${card.fields.image.fields.file.url}`
+          : card.fields?.image?.fields?.file?.url || "",
+        altText: card.fields?.image?.fields?.description || "Descrição indisponível",
+      },
     }));
 
+    console.log("Dados mapeados:", transformedCards);
+
     return {
-      beachCardsCountryNames: documentToReactComponents(beachCardsCountryNames),
-      beachCardsTextInformation: documentToReactComponents(beachCardsTextInformation),
-      images,
+      cards: transformedCards,
     };
   }
 }
