@@ -25,8 +25,8 @@
     flex-direction: column;
     justify-content: flex-end;
     padding: 20px;
-    color: rgb(26, 79, 104);
-    background-color: #fdfdfd;
+    color: rgb(253, 254, 255);
+    background-color: rgba(63, 102, 124, 0.63);
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
 }
 
@@ -36,10 +36,16 @@
     margin-top: 2rem;
 }
 
-.cardsTextInformation {
+.carsTextInformation {
     font-size: 16px;
     color: rgb(26, 79, 104);
     opacity: 0.75;
     margin-top: 1rem;
     margin-bottom: 1rem;
+}
+
+.imageContainer {
+    background-size: 18rem;
+    background-position: top;
+    background-repeat: no-repeat;
 }

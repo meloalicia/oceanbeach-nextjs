@@ -4,6 +4,11 @@ import { Entry } from "contentful";
 import { ContentModelNames } from "../constants/contentful";
 import { ContentfulImage } from "../types/contentful";
 
+// type HeroBanner = {
+//   welcomeTitle: string;
+//   informativeText: string;
+//   backgroundImage: ContentfulImage;
+// }
 export class ContentfulDataMapper {
   private readonly componentData: Entry;
 
@@ -78,37 +83,32 @@ export class ContentfulDataMapper {
 
   private mapCountryBeachCardsContainer() {
     const { fields } = this.componentData;
-    const { cards } = fields as unknown as {
-      cards: Array<{
-        fields: {
-          title: string;
-          text: Document;
-          image: {
-            fields: { file: { url: string }; description: string };
-          };
-        };
-      }>;
-    };
 
-    console.log("teste", cards);
+    const { cards } = fields as unknown;
 
-    if (!cards || !Array.isArray(cards)) {
-      console.warn("cards está ausente ou não é um array.");
+    console.log("Cards recebidos:", cards[0].fields);
+
+    if (!cards || !Array.isArray(cards) || cards.length === 0) {
+      console.warn("Nenhum card encontrado ou cards está ausente.");
       return {
         cards: [],
       };
     }
 
-    const transformedCards = cards.map((card) => ({
-      title: card.fields?.title || "Título indisponível",
-      text: card.fields?.text ? documentToReactComponents(card.fields.text) : null,
-      image: {
-        url: card.fields?.image?.fields?.file?.url?.startsWith("//")
-          ? `https:${card.fields.image.fields.file.url}`
-          : card.fields?.image?.fields?.file?.url || "",
-        altText: card.fields?.image?.fields?.description || "Descrição indisponível",
-      },
-    }));
+    const transformedCards = cards.map((card) => {
+      const { countryName, cardsTextInformation, image } = card.fields;
+      const imageUrl = image?.fields?.file?.url;
+      const imageDescription = image?.fields?.description;
+
+      return {
+        countryName: documentToReactComponents(countryName),
+        textInformation: documentToReactComponents(cardsTextInformation),
+        image: {
+          url: imageUrl,
+          description: imageDescription,
+        },
+      };
+    });
 
     console.log("Dados mapeados:", transformedCards);
 

@@ -17,7 +17,7 @@ export type CarouselProps = {
 export default function Carousel(props: CarouselProps) {
   const { carouselTextInformation, images } = props;
 
-  console.log("Carousel Props:", props);
+  //console.log("Carousel Props:", props);
 
   if (!images || !Array.isArray(images) || images.length === 0) {
     //return <p>Nenhum item encontrado no carrossel.</p>;

@@ -11,7 +11,9 @@ const client = contentful.createClient({
 
 async function getEntry(id: string): Promise<Entry | null> {
   try {
-    const entry = await client.getEntry(id);
+    const entry = await client.getEntry(id, {
+      include: 5,
+    });
     return entry;
   } catch (error) {
     console.error(error);
