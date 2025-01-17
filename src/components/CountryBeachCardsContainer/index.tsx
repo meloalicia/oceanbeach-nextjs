@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { ReactNode } from "react";
 import styles from "./CountryBeachCardsContainer.module.scss";
 
@@ -11,6 +12,7 @@ type CardImage = {
 type CountryBeachCards = {
   countryName: string;
   textInformation: ReactNode;
+  cardButton: string;
   image: CardImage;
 };
 
@@ -28,15 +30,13 @@ export default function CountryBeachCardsContainer({ cards }: CountryBeachCardsC
     <div className={styles.container}>
       {cards.map((card, index) => {
         return (
-          <div
-            key={index}
-            className={styles.card}
-            style={{
-              backgroundImage: `url(${card.image.url})`,
-            }}
-          >
+          <div key={index} className={styles.card}>
+            <div className={styles.cardImage}>
+              <Image src={card.image.url} alt={card.image.description} width={288} height={263} />
+            </div>
             <div className={styles.countryNames}>{card.countryName}</div>
             <div className={styles.cardsTextInformation}>{card.textInformation}</div>
+            <div className={styles.cardButton}>{card.cardButton}</div>
           </div>
         );
       })}

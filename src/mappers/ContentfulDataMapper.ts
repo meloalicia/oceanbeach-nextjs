@@ -96,15 +96,17 @@ export class ContentfulDataMapper {
     }
 
     const transformedCards = cards.map((card) => {
-      const { countryName, cardsTextInformation, image } = card.fields;
-      const imageUrl = image?.fields?.file?.url;
+      const { countryName, cardsTextInformation, cardButton, image } = card.fields;
+      const imageUrl = image?.fields?.file?.url || "";
+      const transformedImageUrl = imageUrl.startsWith("//") ? `https:${imageUrl}` : imageUrl;
       const imageDescription = image?.fields?.description;
 
       return {
         countryName: documentToReactComponents(countryName),
         textInformation: documentToReactComponents(cardsTextInformation),
+        cardButton: cardButton,
         image: {
-          url: imageUrl,
+          url: transformedImageUrl,
           description: imageDescription,
         },
       };
