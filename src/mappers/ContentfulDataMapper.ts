@@ -36,7 +36,7 @@ export class ContentfulDataMapper {
 
   private mapHeroBannerData() {
     const { fields } = this.componentData;
-    const { welcomeTitle, informativeText, backgroundImage } = fields;
+    const { brandName, heroTitle, heroSubtitle, backgroundImage } = fields;
 
     const imageFields = (backgroundImage as Record<string, unknown>)?.fields as ContentfulImage;
     const image = {
@@ -46,8 +46,9 @@ export class ContentfulDataMapper {
     };
 
     return {
-      welcomeTitle: documentToReactComponents(welcomeTitle as Document),
-      informativeText: documentToReactComponents(informativeText as Document),
+      brandName: documentToReactComponents(brandName as Document),
+      heroTitle: documentToReactComponents(heroTitle as Document),
+      heroSubtitle: documentToReactComponents(heroSubtitle as Document),
       image,
     };
   }
@@ -83,15 +84,14 @@ export class ContentfulDataMapper {
 
   private mapCountryBeachCardsContainer() {
     const { fields } = this.componentData;
-
+    const containerTitle = fields.containerTitle || "";
     const { cards } = fields as unknown;
-
-    console.log("Cards recebidos:", cards[0].fields);
 
     if (!cards || !Array.isArray(cards) || cards.length === 0) {
       console.warn("Nenhum card encontrado ou cards está ausente.");
       return {
         cards: [],
+        containerTitle,
       };
     }
 
@@ -112,9 +112,10 @@ export class ContentfulDataMapper {
       };
     });
 
-    console.log("Dados mapeados:", transformedCards);
+    console.log("Dados mapeados:", transformedCards, containerTitle);
 
     return {
+      containerTitle,
       cards: transformedCards,
     };
   }

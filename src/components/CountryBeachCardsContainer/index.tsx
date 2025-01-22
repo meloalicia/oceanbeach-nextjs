@@ -18,9 +18,13 @@ type CountryBeachCards = {
 
 type CountryBeachCardsContainerProps = {
   cards: CountryBeachCards[];
+  containerTitle: string;
 };
 
-export default function CountryBeachCardsContainer({ cards }: CountryBeachCardsContainerProps) {
+export default function CountryBeachCardsContainer({
+  cards,
+  containerTitle,
+}: CountryBeachCardsContainerProps) {
   if (!cards || cards.length === 0) {
     console.warn("Nenhum card encontrado");
     return <div>Dados incompletos!</div>;
@@ -28,6 +32,7 @@ export default function CountryBeachCardsContainer({ cards }: CountryBeachCardsC
 
   return (
     <div className={styles.container}>
+      <div className={styles.containerTitle}>{containerTitle}</div>
       {cards.map((card, index) => {
         return (
           <div key={index} className={styles.card}>

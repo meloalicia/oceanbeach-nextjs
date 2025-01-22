@@ -8,7 +8,18 @@
     gap: 2rem;
     margin-left: 3rem;
     padding-top: 5rem;
-    opacity: 0.75;
+}
+
+.containerTitle {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    color: rgb(59, 140, 155);
+    padding: 3rem;
+    font-family: "Quicksand", sans-serif;
+    font-weight: 300;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .card {
@@ -21,10 +32,9 @@
     flex-direction: column;
     justify-content: flex-end;
     padding: 20px;
-    color: rgb(253, 254, 255);
-    background-color: rgba(63, 102, 124, 0.63);
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
     position: relative;
+    background-color: rgb(59, 140, 155);
     overflow: hidden;
     transition: all .1s;
 }
@@ -38,7 +48,7 @@
 .countryNames {
     font-size: 20px;
     font-weight: bold;
-    margin-top: 2.5rem;
+    margin-top: 3.5rem;
     z-index: 1;
     color: rgb(255, 255, 255);
 }
@@ -46,21 +56,11 @@
 .cardsTextInformation {
     font-size: 16px;
     color: rgb(248, 249, 250);
-    opacity: 0.75;
-    margin-top: 1rem;
-    margin-bottom: 0.5rem;
+    margin-top: 1.2rem;
     cursor: pointer;
     z-index: 1;
-    background-color: rgba(0, 0, 0, 0.575);
-    padding: 15px;
+    padding: 11px;
     border-radius: 0.5rem;
-}
-
-.cardsTextInformation:hover {
-    transform: scale(1.09);
-    transition: all .2s cubic-bezier(0.4, 0, 0.2, 1);
-    background-color: rgb(7, 28, 41);
-    background: linear-gradient(135deg, rgba(7, 28, 41, 1) 0%, rgba(15, 45, 61, 1) 100%);
 }
 
 .cardImage {
@@ -71,21 +71,7 @@
     height: 100%;
 
     img {
-        object-fit: cover;
-        height: 100%;
         width: 19rem;
-    }
-
-    &::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.164) 60%, rgba(0, 0, 0, 0.9) 100%);
-        pointer-events: none;
-        z-index: 1;
     }
 }
 
@@ -94,8 +80,7 @@
     background-color: rgba(0, 0, 0, 0.575);
     height: 2.5rem;
     width: 5.5rem;
-    margin-top: 0.7rem;
-    margin-bottom: 0.5rem;
+    margin-top: 0.4rem;
     border-radius: 0.5rem;
     cursor: pointer;
     padding: 10px 7px;
@@ -103,7 +88,9 @@
     text-align: center;
     line-height: 1;
     vertical-align: bottom;
+    color: rgb(240, 248, 255)
 }
+
 
 .cardButton:hover {
     transform: scale(1.09);

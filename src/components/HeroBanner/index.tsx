@@ -8,13 +8,14 @@ type HeroBannerImage = {
 };
 
 type HeroBannerProps = {
-  welcomeTitle: ReactNode;
-  informativeText: ReactNode;
+  brandName: ReactNode;
+  heroTitle: ReactNode;
+  heroSubtitle: ReactNode;
   image: HeroBannerImage;
 };
 
 export default function HeroBanner(props: HeroBannerProps) {
-  const { welcomeTitle, informativeText, image } = props;
+  const { brandName, heroTitle, heroSubtitle, image } = props;
 
   const imageUrl = image.url.startsWith("//") ? `https:${image.url}` : image.url;
 
@@ -23,13 +24,16 @@ export default function HeroBanner(props: HeroBannerProps) {
       className={`${styles.container} ${styles.imageBackground}`}
       style={{
         backgroundImage: `url(${imageUrl})`,
-        height: "24rem",
+        height: "29rem",
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
     >
-      {welcomeTitle}
-      <div className={styles.informativeText}>{informativeText}</div>
+      <div className={styles.brandName}>{brandName}</div>
+      <div className={styles.contentWrapper}>
+        <div className={styles.heroTitle}>{heroTitle}</div>
+        <div className={styles.heroSubtitle}>{heroSubtitle}</div>
+      </div>
     </div>
   );
 }

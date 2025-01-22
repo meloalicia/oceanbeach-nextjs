@@ -5,9 +5,7 @@
 }
 
 html, body {
-  margin: 0;
-  padding: 0;
-  background-color: #94907d; /* Cor de fundo */
+  background-color: hsla(0, 0%, 100%, 0.644); /* Cor de fundo */
   background-size: cover; /* Ajusta a imagem para cobrir o fundo */
   background-repeat: no-repeat; /* Evita que a imagem se repita */
   background-position: center; /* Centraliza a imagem */
