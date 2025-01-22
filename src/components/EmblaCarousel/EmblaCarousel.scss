@@ -4,13 +4,13 @@
     --brand-alternative: rgb(136, 186, 191);
     --background-site: rgb(0, 0, 0);
     --background-code: rgb(12, 12, 12);
-    --text-body: rgb(59, 140, 155);
+    --text-body: #fff;
     --text-comment: rgb(138, 37, 37);
     --text-high-contrast: rgb(139, 44, 44);
     --text-medium-contrast: rgb(148, 42, 42);
     --text-low-contrast: rgb(150, 42, 42);
-    --detail-high-contrast: rgb(59, 140, 155);
-    --detail-medium-contrast: rgb(59, 140, 155);
+    --detail-high-contrast: #fff;
+    --detail-medium-contrast: #fff;
     --detail-low-contrast: rgb(138, 48, 48);
     --admonition-note: rgb(138, 180, 248);
     --admonition-warning: rgb(253, 186, 116);
@@ -33,23 +33,33 @@
     --admonition-danger-rgb-value: 220, 38, 38;
 }
 
+.containerEmbla {
+    background-color: rgb(187, 182, 138);
+    border-radius: 2rem;
+    margin: 1rem;
+    height: 38rem;
+}
+
+.embla__viewport {
+    overflow: hidden;
+    margin: 1rem;
+}
+
 .embla {
     max-width: 48rem;
     margin: auto;
     --slide-height: 19rem;
     --slide-spacing: 1rem;
     --slide-size: 70%;
-    margin-bottom: 12rem;
+    margin-bottom: 5rem;
+    border-radius: 4rem;
 }
 
-.embla__viewport {
-    overflow: hidden;
-}
-
-.embla__container {
+.embla__viewport .embla__container {
     display: flex;
     touch-action: pan-y pinch-zoom;
     margin-left: calc(var(--slide-spacing) * -1);
+    margin: 1rem;
 }
 
 .embla__slide {
@@ -65,6 +75,7 @@
     height: var(--slide-height);
     width: 100%;
     object-fit: cover;
+    margin-top: 5rem;
 }
 
 .embla__controls {
@@ -119,7 +130,7 @@
     flex-wrap: wrap;
     justify-content: flex-end;
     align-items: center;
-    margin-right: calc((2.6rem - 1.4rem) / 2 * -1);
+    margin-right: 1.6rem;
 }
 
 .embla__dot {

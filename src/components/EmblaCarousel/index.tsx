@@ -87,44 +87,46 @@ export function EmblaCarousel({ images }: EmblaCarouselProps) {
   }, [emblaApi, setTweenFactor, tweenOpacity]);
 
   return (
-    <div className="embla">
-      <div className="embla__viewport" ref={emblaRef}>
-        <div className="embla__container">
-          {images.map((image, index) => {
-            const imageUrl = image.url.startsWith("//") ? `https:${image.url}` : image.url;
+    <div className="containerEmbla">
+      <div className="embla">
+        <div className="embla__viewport" ref={emblaRef}>
+          <div className="embla__container">
+            {images.map((image, index) => {
+              const imageUrl = image.url.startsWith("//") ? `https:${image.url}` : image.url;
 
-            return (
-              <div key={index} className="embla__slide">
-                <Image
-                  className="embla__slide__img"
-                  src={imageUrl}
-                  alt={image.title}
-                  width={800}
-                  height={450}
-                  priority={index === 0}
-                />
-                <h3>{image.title}</h3>
-                <div className="embla-image-description">{image.description}</div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-
-      <div className="embla__controls">
-        <div className="embla__buttons">
-          <PrevButton onClick={onPrevButtonClick} disabled={prevBtnDisabled} />
-          <NextButton onClick={onNextButtonClick} disabled={nextBtnDisabled} />
+              return (
+                <div key={index} className="embla__slide">
+                  <Image
+                    className="embla__slide__img"
+                    src={imageUrl}
+                    alt={image.title}
+                    width={800}
+                    height={450}
+                    priority={index === 0}
+                  />
+                  <h3>{image.title}</h3>
+                  <div className="embla-image-description">{image.description}</div>
+                </div>
+              );
+            })}
+          </div>
         </div>
 
-        <div className="embla__dots">
-          {scrollSnaps.map((_, index) => (
-            <DotButton
-              key={index}
-              onClick={() => onDotButtonClick(index)}
-              className={`embla__dot${index === selectedIndex ? " embla__dot--selected" : ""}`}
-            />
-          ))}
+        <div className="embla__controls">
+          <div className="embla__buttons">
+            <PrevButton onClick={onPrevButtonClick} disabled={prevBtnDisabled} />
+            <NextButton onClick={onNextButtonClick} disabled={nextBtnDisabled} />
+          </div>
+
+          <div className="embla__dots">
+            {scrollSnaps.map((_, index) => (
+              <DotButton
+                key={index}
+                onClick={() => onDotButtonClick(index)}
+                className={`embla__dot${index === selectedIndex ? " embla__dot--selected" : ""}`}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </div>
