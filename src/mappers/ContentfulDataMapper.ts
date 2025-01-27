@@ -58,7 +58,7 @@ export class ContentfulDataMapper {
     const { carouselTextInformation, carouselImages } = fields as {
       carouselTextInformation: Document;
       carouselImages?: Array<{
-        fields: { file: { url: string }; title: string; description: string };
+        fields: { file: { url: string } };
       }>;
     };
 
@@ -71,9 +71,7 @@ export class ContentfulDataMapper {
     }
 
     const images = carouselImages.map((image) => ({
-      title: image.fields.title,
       url: image.fields.file.url,
-      description: image.fields.description,
     }));
 
     return {

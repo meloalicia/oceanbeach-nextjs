@@ -33,18 +33,20 @@ export default function CountryBeachCardsContainer({
   return (
     <div className={styles.container}>
       <div className={styles.containerTitle}>{containerTitle}</div>
-      {cards.map((card, index) => {
-        return (
-          <div key={index} className={styles.card}>
-            <div className={styles.cardImage}>
-              <Image src={card.image.url} alt={card.image.description} width={288} height={263} />
+      <div className={styles.cardsContainer}>
+        {cards.map((card, index) => {
+          return (
+            <div key={index} className={styles.card}>
+              <div className={styles.cardImage}>
+                <Image src={card.image.url} alt={card.image.description} width={288} height={263} />
+              </div>
+              <div className={styles.countryNames}>{card.countryName}</div>
+              <div className={styles.cardsTextInformation}>{card.textInformation}</div>
+              <button className={styles.cardButton}>{card.cardButton}</button>
             </div>
-            <div className={styles.countryNames}>{card.countryName}</div>
-            <div className={styles.cardsTextInformation}>{card.textInformation}</div>
-            <div className={styles.cardButton}>{card.cardButton}</div>
-          </div>
-        );
-      })}
+          );
+        })}
+      </div>
     </div>
   );
 }
