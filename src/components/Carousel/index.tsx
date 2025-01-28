@@ -12,21 +12,21 @@ type CarouselImage = {
 export type CarouselProps = {
   carouselTextInformation: ReactNode;
   images: CarouselImage[];
+  countryInformation: ReactNode;
 };
 
 export default function Carousel(props: CarouselProps) {
-  const { carouselTextInformation, images } = props;
-
-  //console.log("Carousel Props:", props);
-
-  if (!images || !Array.isArray(images) || images.length === 0) {
-    //return <p>Nenhum item encontrado no carrossel.</p>;
-  }
+  const { carouselTextInformation, images, countryInformation } = props;
 
   return (
     <div className={styles.carousel}>
       <div className={styles.carouselTextInformation}>{carouselTextInformation}</div>
-      <EmblaCarousel images={images} />
+      <div className={styles.emblaContainer}>
+        <div className={styles.countryInformation}>
+          <h4>{countryInformation}</h4>
+        </div>
+        <EmblaCarousel images={images} />
+      </div>
     </div>
   );
 }

@@ -55,28 +55,33 @@ export class ContentfulDataMapper {
 
   private mapCarouselComponent() {
     const { fields } = this.componentData;
-    const { carouselTextInformation, carouselImages } = fields as {
+    const { carouselTextInformation, carouselImages, countryInformation } = fields as {
       carouselTextInformation: Document;
       carouselImages?: Array<{
-        fields: { file: { url: string } };
+        fields: { file: { url: string }; title?: string; description?: string };
       }>;
+      countryInformation?: Document; // Adiciona countryInformation aqui
     };
 
-    if (!carouselImages || !Array.isArray(carouselImages)) {
-      console.warn("carouselImage está indefinido ou não é um array.");
+    if (!carouselImages || !Array.isArray(carouselImages) || carouselImages.length === 0) {
+      console.warn("carouselImages está indefinido, não é um array ou está vazio.");
       return {
         carouselTextInformation: documentToReactComponents(carouselTextInformation),
         images: [],
+        countryInformation: countryInformation ? documentToReactComponents(countryInformation) : "", // Verificando se existe
       };
     }
 
     const images = carouselImages.map((image) => ({
       url: image.fields.file.url,
+      title: image.fields.title || "",
+      description: image.fields.description || "",
     }));
 
     return {
       carouselTextInformation: documentToReactComponents(carouselTextInformation),
       images,
+      countryInformation: countryInformation ? documentToReactComponents(countryInformation) : "", // Verificando se existe
     };
   }
 

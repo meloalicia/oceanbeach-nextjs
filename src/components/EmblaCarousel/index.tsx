@@ -2,7 +2,7 @@
 import { EmblaCarouselType, EmblaEventType } from "embla-carousel";
 import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import "./EmblaCarousel.scss";
 import { NextButton, PrevButton, usePrevNextButtons } from "./EmblaCarouselArrowButtons";
 import { DotButton, useDotButton } from "./EmblaCarouselDotButton";
@@ -25,6 +25,8 @@ export type EmblaCarouselProps = {
 
 export function EmblaCarousel({ images }: EmblaCarouselProps) {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
+  const [showInfo, setShowInfo] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const tweenFactor = useRef(0);
 
   const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(emblaApi);
@@ -68,10 +70,13 @@ export function EmblaCarousel({ images }: EmblaCarouselProps) {
 
         const tweenValue = 1 - Math.abs(diffToTarget * tweenFactor.current);
         const opacity = numberWithinRange(tweenValue, 0, 1).toString();
-        console.log(slideIndex, opacity);
         emblaApi.slideNodes()[slideIndex].style.opacity = opacity;
       });
     });
+  }, []);
+
+  const toggleInfoView = useCallback(() => {
+    setShowInfo((prev) => !prev);
   }, []);
 
   useEffect(() => {
@@ -79,11 +84,23 @@ export function EmblaCarousel({ images }: EmblaCarouselProps) {
 
     setTweenFactor(emblaApi);
     tweenOpacity(emblaApi);
+
     emblaApi
       .on("reInit", setTweenFactor)
       .on("reInit", tweenOpacity)
       .on("scroll", tweenOpacity)
-      .on("slideFocus", tweenOpacity);
+      .on("slideFocus", tweenOpacity)
+      .on("select", () => {
+        const index = emblaApi.selectedScrollSnap();
+        setCurrentIndex(index);
+      });
+
+    // Trigger info view after 2 seconds
+    const timer = setTimeout(() => {
+      setShowInfo(true);
+    }, 2000);
+
+    return () => clearTimeout(timer);
   }, [emblaApi, setTweenFactor, tweenOpacity]);
 
   return (
@@ -93,25 +110,36 @@ export function EmblaCarousel({ images }: EmblaCarouselProps) {
           <div className="embla__container">
             {images.map((image, index) => {
               const imageUrl = image.url.startsWith("//") ? `https:${image.url}` : image.url;
-
               return (
                 <div key={index} className="embla__slide">
-                  <Image
-                    className="embla__slide__img"
-                    src={imageUrl}
-                    alt={image.title}
-                    width={800}
-                    height={450}
-                    priority={index === 0}
-                  />
-                  <h3>{image.title}</h3>
-                  <div className="embla-image-description">{image.description}</div>
+                  {showInfo && currentIndex === index ? (
+                    <div className="embla__info">
+                      <h3>{image.title}</h3>
+                      <p>{image.description}</p>
+                      <button onClick={toggleInfoView} className="embla__info-button">
+                        Voltar à imagem
+                      </button>
+                    </div>
+                  ) : (
+                    <>
+                      <Image
+                        className="embla__slide__img"
+                        src={imageUrl}
+                        alt={image.title}
+                        width={800}
+                        height={450}
+                        priority={index === 0}
+                      />
+                      <button onClick={toggleInfoView} className="embla__info-button">
+                        Mostrar informações
+                      </button>
+                    </>
+                  )}
                 </div>
               );
             })}
           </div>
         </div>
-
         <div className="embla__controls">
           <div className="embla__buttons">
             <PrevButton onClick={onPrevButtonClick} disabled={prevBtnDisabled} />
