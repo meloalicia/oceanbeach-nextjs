@@ -4,7 +4,6 @@ import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 import "./EmblaCarousel.scss";
-import { NextButton, PrevButton, usePrevNextButtons } from "./EmblaCarouselArrowButtons";
 import { DotButton, useDotButton } from "./EmblaCarouselDotButton";
 
 const TWEEN_FACTOR_BASE = 0.84;
@@ -34,9 +33,6 @@ export function EmblaCarousel({ images }: EmblaCarouselProps) {
   const setTweenFactor = useCallback((emblaApi: EmblaCarouselType) => {
     tweenFactor.current = TWEEN_FACTOR_BASE * emblaApi.scrollSnapList().length;
   }, []);
-
-  const { prevBtnDisabled, nextBtnDisabled, onPrevButtonClick, onNextButtonClick } =
-    usePrevNextButtons(emblaApi);
 
   const tweenOpacity = useCallback((emblaApi: EmblaCarouselType, eventName?: EmblaEventType) => {
     const engine = emblaApi.internalEngine();
@@ -144,21 +140,15 @@ export function EmblaCarousel({ images }: EmblaCarouselProps) {
             })}
           </div>
         </div>
-        <div className="embla__controls">
-          <div className="embla__buttons">
-            <PrevButton onClick={onPrevButtonClick} disabled={prevBtnDisabled} />
-            <NextButton onClick={onNextButtonClick} disabled={nextBtnDisabled} />
-          </div>
 
-          <div className="embla__dots">
-            {scrollSnaps.map((_, index) => (
-              <DotButton
-                key={index}
-                onClick={() => onDotButtonClick(index)}
-                className={`embla__dot${index === selectedIndex ? " embla__dot--selected" : ""}`}
-              />
-            ))}
-          </div>
+        <div className="embla__dots">
+          {scrollSnaps.map((_, index) => (
+            <DotButton
+              key={index}
+              onClick={() => onDotButtonClick(index)}
+              className={`embla__dot${index === selectedIndex ? " embla__dot--selected" : ""}`}
+            />
+          ))}
         </div>
       </div>
     </div>
