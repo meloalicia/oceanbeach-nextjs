@@ -53,6 +53,22 @@ export class ContentfulDataMapper {
     };
   }
 
+  private formatDescription(description: string): string {
+    // Divide a descrição em linhas com base nas quebras de linha (\n)
+    const lines = description.split("\n");
+
+    // Processa cada linha para adicionar <strong> e <br>
+    return lines
+      .map((line) => {
+        if (line.includes(":")) {
+          const [keyword, text] = line.split(":");
+          return `<strong>${keyword}:</strong>${text}`;
+        }
+        return line;
+      })
+      .join("<br /><br />"); // Adiciona espaçamento entre os tópicos
+  }
+
   private mapCarouselComponent() {
     const { fields } = this.componentData;
     const { carouselTextInformation, carouselImages, countryInformation } = fields as {
@@ -75,7 +91,7 @@ export class ContentfulDataMapper {
     const images = carouselImages.map((image) => ({
       url: image.fields.file.url,
       title: image.fields.title || "",
-      description: image.fields.description || "",
+      description: image.fields.description ? this.formatDescription(image.fields.description) : "",
     }));
 
     return {

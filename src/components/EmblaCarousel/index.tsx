@@ -115,7 +115,11 @@ export function EmblaCarousel({ images }: EmblaCarouselProps) {
                   {showInfo && currentIndex === index ? (
                     <div className="embla__info">
                       <h3>{image.title}</h3>
-                      <p>{image.description}</p>
+                      <p
+                        dangerouslySetInnerHTML={{
+                          __html: image.description,
+                        }}
+                      />
                       <button onClick={toggleInfoView} className="embla__info-button">
                         Voltar à imagem
                       </button>
