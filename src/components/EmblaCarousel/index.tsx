@@ -12,6 +12,7 @@ const numberWithinRange = (number: number, min: number, max: number): number =>
   Math.min(Math.max(number, min), max);
 
 type EmblaCarouselImage = {
+  id: string; // Adicione um ID único para cada imagem
   title: string;
   url: string;
   description: string;
@@ -90,13 +91,6 @@ export function EmblaCarousel({ images }: EmblaCarouselProps) {
         const index = emblaApi.selectedScrollSnap();
         setCurrentIndex(index);
       });
-
-    // Trigger info view after 2 seconds
-    const timer = setTimeout(() => {
-      setShowInfo(true);
-    }, 2000);
-
-    return () => clearTimeout(timer);
   }, [emblaApi, setTweenFactor, tweenOpacity]);
 
   return (
@@ -107,40 +101,39 @@ export function EmblaCarousel({ images }: EmblaCarouselProps) {
             {images.map((image, index) => {
               const imageUrl = image.url.startsWith("//") ? `https:${image.url}` : image.url;
               return (
-                <div key={index} className="embla__slide">
-                  {showInfo && currentIndex === index ? (
-                    <div className="embla__info">
-                      <h3>{image.title}</h3>
-                      <p
-                        dangerouslySetInnerHTML={{
-                          __html: image.description,
-                        }}
-                      />
-                      <button onClick={toggleInfoView} className="embla__info-button">
-                        Voltar à imagem
-                      </button>
-                    </div>
-                  ) : (
-                    <>
-                      <Image
-                        className="embla__slide__img"
-                        src={imageUrl}
-                        alt={image.title}
-                        width={800}
-                        height={450}
-                        priority={index === 0}
-                      />
-                      <button onClick={toggleInfoView} className="embla__info-button">
-                        Mostrar informações
-                      </button>
-                    </>
-                  )}
+                <div key={image.id} className="embla__slide">
+                  {" "}
+                  <div
+                    className="embla__slide__img-container"
+                    style={{ opacity: showInfo && currentIndex === index ? 0 : 1 }}
+                  >
+                    <Image
+                      className="embla__slide__img"
+                      src={imageUrl}
+                      alt={image.title}
+                      width={800}
+                      height={450}
+                      priority={index === 0}
+                    />
+                    <button onClick={toggleInfoView} className="embla__info-button">
+                      Mostrar informações
+                    </button>
+                  </div>
+                  <div
+                    className="embla__info"
+                    style={{ opacity: showInfo && currentIndex === index ? 1 : 0 }}
+                  >
+                    <h3>{image.title}</h3>
+                    <p dangerouslySetInnerHTML={{ __html: image.description }} />
+                    <button onClick={toggleInfoView} className="embla__info-button">
+                      Vizualizar imagem
+                    </button>
+                  </div>
                 </div>
               );
             })}
           </div>
         </div>
-
         <div className="embla__dots">
           {scrollSnaps.map((_, index) => (
             <DotButton

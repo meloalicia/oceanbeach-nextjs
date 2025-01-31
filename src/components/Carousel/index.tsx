@@ -3,6 +3,7 @@ import { EmblaCarousel } from "../EmblaCarousel";
 import styles from "./Carousel.module.scss";
 
 type CarouselImage = {
+  id: string;
   title: string;
   url: string;
   description: string;
@@ -16,6 +17,8 @@ export type CarouselProps = {
 };
 
 export default function Carousel(props: CarouselProps) {
+  console.log("Carousel props:", props);
+
   const { carouselTextInformation, images, countryInformation } = props;
 
   return (
