@@ -1,0 +1,42 @@
+.carouselImages {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 90px;
+}
+
+.carouselTextInformation {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    color: rgb(59, 140, 155);
+    padding: 3rem;
+    font-family: sans-serif;
+    font-weight: 300;
+    display: flex;
+    flex-direction: column;
+    margin-left: -2rem;
+    font-weight: bold;
+
+}
+
+.slides {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 3rem;
+    border-radius: 45px;
+}
+
+.images {
+    width: 100%;
+    max-width: 800px;
+    height: auto;
+    object-fit: cover;
+}
+
+.title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #000000;
+    margin-top: 10px;
+}
