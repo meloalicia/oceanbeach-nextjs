@@ -1,10 +1,3 @@
-.carouselImages {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 90px;
-}
-
 .carouselTextInformation {
     font-size: 1.8rem;
     margin-bottom: 10px;
@@ -17,26 +10,4 @@
     margin-left: -2rem;
     font-weight: bold;
 
-}
-
-.slides {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 3rem;
-    border-radius: 45px;
-}
-
-.images {
-    width: 100%;
-    max-width: 800px;
-    height: auto;
-    object-fit: cover;
-}
-
-.title {
-    font-size: 1.25rem;
-    font-weight: bold;
-    color: #000000;
-    margin-top: 10px;
 }

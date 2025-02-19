@@ -70,34 +70,59 @@ export class ContentfulDataMapper {
   }
 
   private mapCarouselComponent() {
-    const { fields } = this.componentData;
-    const { carouselTextInformation, carouselImages, countryInformation } = fields as {
-      carouselTextInformation: Document;
-      carouselImages?: Array<{
-        fields: { file: { url: string }; title?: string; description?: string };
-      }>;
-      countryInformation?: Document; // Adiciona countryInformation aqui
+    const { fields } = this.componentData as {
+      fields: {
+        carouselTextInformation?: Document;
+        carouselImages?: Array<{
+          sys: { id: string };
+          fields: { file: { url: string }; title?: string; description?: string };
+        }>;
+        countryInformation?: Document;
+        buttonDiscoverCountry?: string;
+        buttonShowInfo?: string;
+        buttonBackToImage?: string;
+      };
     };
+
+    const {
+      carouselTextInformation,
+      carouselImages,
+      countryInformation,
+      buttonDiscoverCountry,
+      buttonShowInfo,
+      buttonBackToImage,
+    } = fields;
 
     if (!carouselImages || !Array.isArray(carouselImages) || carouselImages.length === 0) {
       console.warn("carouselImages está indefinido, não é um array ou está vazio.");
       return {
-        carouselTextInformation: documentToReactComponents(carouselTextInformation),
+        carouselTextInformation: carouselTextInformation
+          ? documentToReactComponents(carouselTextInformation)
+          : "",
         images: [],
-        countryInformation: countryInformation ? documentToReactComponents(countryInformation) : "", // Verificando se existe
+        countryInformation: countryInformation ? documentToReactComponents(countryInformation) : "",
+        buttonDiscoverCountry: buttonDiscoverCountry || "",
+        buttonShowInfo: buttonShowInfo || "",
+        buttonBackToImage: buttonBackToImage || "",
       };
     }
 
     const images = carouselImages.map((image) => ({
+      id: image.sys.id, // <-- Adicionei o ID para manter a estrutura correta
       url: image.fields.file.url,
       title: image.fields.title || "",
       description: image.fields.description ? this.formatDescription(image.fields.description) : "",
     }));
 
     return {
-      carouselTextInformation: documentToReactComponents(carouselTextInformation),
+      carouselTextInformation: carouselTextInformation
+        ? documentToReactComponents(carouselTextInformation)
+        : "",
       images,
-      countryInformation: countryInformation ? documentToReactComponents(countryInformation) : "", // Verificando se existe
+      countryInformation: countryInformation ? documentToReactComponents(countryInformation) : "",
+      buttonDiscoverCountry: buttonDiscoverCountry || "",
+      buttonShowInfo: buttonShowInfo || "",
+      buttonBackToImage: buttonBackToImage || "",
     };
   }
 

@@ -36,14 +36,12 @@
 .containerEmbla {
     background-color: rgb(187, 182, 138);
     border-radius: 2rem;
-    margin: 1rem;
     height: 38rem;
     margin-top: -2rem;
 }
 
 .embla__viewport {
-    overflow: hidden;
-    margin: 1rem;
+    padding: 1.2rem;
 }
 
 .embla {
@@ -201,4 +199,21 @@
 .embla__info p strong {
     font-weight: bold;
     color: #333;
+}
+
+.embla__discover-button {
+    position: absolute;
+    bottom: 10px;
+    margin-left: 22.5rem;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.containerEmbla {
+    padding: 0 2rem;
+    /* Adiciona margem nas laterais */
 }

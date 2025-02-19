@@ -2,7 +2,7 @@
 import { EmblaCarouselType, EmblaEventType } from "embla-carousel";
 import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { ReactNode, useCallback, useEffect, useRef, useState } from "react";
 import "./EmblaCarousel.scss";
 import { DotButton, useDotButton } from "./EmblaCarouselDotButton";
 
@@ -21,14 +21,23 @@ type EmblaCarouselImage = {
 
 export type EmblaCarouselProps = {
   images: EmblaCarouselImage[];
+  buttonDiscoverCountry: string;
+  countryInformation: ReactNode;
+  buttonShowInfo: string;
+  buttonBackToImage: string;
 };
 
-export function EmblaCarousel({ images }: EmblaCarouselProps) {
+export function EmblaCarousel({
+  images,
+  buttonDiscoverCountry,
+  buttonShowInfo,
+  buttonBackToImage,
+  countryInformation,
+}: EmblaCarouselProps) {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
   const [showInfo, setShowInfo] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const tweenFactor = useRef(0);
-
   const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(emblaApi);
 
   const setTweenFactor = useCallback((emblaApi: EmblaCarouselType) => {
@@ -116,9 +125,10 @@ export function EmblaCarousel({ images }: EmblaCarouselProps) {
                       priority={index === 0}
                     />
                     <button onClick={toggleInfoView} className="embla__info-button">
-                      Mostrar informações
+                      {buttonShowInfo}
                     </button>
                   </div>
+                  <div className="embla__country-info">{countryInformation}</div>
                   <div
                     className="embla__info"
                     style={{ opacity: showInfo && currentIndex === index ? 1 : 0 }}
@@ -126,7 +136,10 @@ export function EmblaCarousel({ images }: EmblaCarouselProps) {
                     <h3>{image.title}</h3>
                     <p dangerouslySetInnerHTML={{ __html: image.description }} />
                     <button onClick={toggleInfoView} className="embla__info-button">
-                      Vizualizar imagem
+                      {buttonBackToImage}
+                    </button>
+                    <button onClick={toggleInfoView} className="embla__discover-button">
+                      {buttonDiscoverCountry}
                     </button>
                   </div>
                 </div>
