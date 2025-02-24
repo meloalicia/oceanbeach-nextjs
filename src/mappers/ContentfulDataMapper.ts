@@ -4,17 +4,11 @@ import { Entry } from "contentful";
 import { ContentModelNames } from "../constants/contentful";
 import { ContentfulImage } from "../types/contentful";
 
-// type HeroBanner = {
-//   welcomeTitle: string;
-//   informativeText: string;
-//   backgroundImage: ContentfulImage;
-// }
 export class ContentfulDataMapper {
   private readonly componentData: Entry;
 
   constructor(componentData: Entry) {
     this.componentData = componentData;
-    console.log("Dados do Contentful:", this.componentData);
   }
 
   public mapContentfulData() {
@@ -54,10 +48,8 @@ export class ContentfulDataMapper {
   }
 
   private formatDescription(description: string): string {
-    // Divide a descrição em linhas com base nas quebras de linha (\n)
     const lines = description.split("\n");
 
-    // Processa cada linha para adicionar <strong> e <br>
     return lines
       .map((line) => {
         if (line.includes(":")) {
@@ -66,7 +58,7 @@ export class ContentfulDataMapper {
         }
         return line;
       })
-      .join("<br /><br />"); // Adiciona espaçamento entre os tópicos
+      .join("<br /><br />");
   }
 
   private mapCarouselComponent() {
@@ -108,7 +100,7 @@ export class ContentfulDataMapper {
     }
 
     const images = carouselImages.map((image) => ({
-      id: image.sys.id, // <-- Adicionei o ID para manter a estrutura correta
+      id: image.sys.id,
       url: image.fields.file.url,
       title: image.fields.title || "",
       description: image.fields.description ? this.formatDescription(image.fields.description) : "",
@@ -127,11 +119,29 @@ export class ContentfulDataMapper {
   }
 
   private mapCountryBeachCardsContainer() {
-    const { fields } = this.componentData;
-    const containerTitle = fields.containerTitle || "";
-    const { cards } = fields as unknown;
+    const { fields } = this.componentData as {
+      fields: {
+        containerTitle?: string;
+        cards?: Array<{
+          fields: {
+            countryName: Document;
+            cardsTextInformation: Document;
+            cardButton: string;
+            image?: {
+              fields: {
+                file: { url: string };
+                description?: string;
+              };
+            };
+          };
+        }>;
+      };
+    };
 
-    if (!cards || !Array.isArray(cards) || cards.length === 0) {
+    const containerTitle = fields.containerTitle || "";
+    const cards = fields.cards || [];
+
+    if (cards.length === 0) {
       console.warn("Nenhum card encontrado ou cards está ausente.");
       return {
         cards: [],
@@ -148,7 +158,7 @@ export class ContentfulDataMapper {
       return {
         countryName: documentToReactComponents(countryName),
         textInformation: documentToReactComponents(cardsTextInformation),
-        cardButton: cardButton,
+        cardButton,
         image: {
           url: transformedImageUrl,
           description: imageDescription,

@@ -12,7 +12,7 @@ const numberWithinRange = (number: number, min: number, max: number): number =>
   Math.min(Math.max(number, min), max);
 
 type EmblaCarouselImage = {
-  id: string; // Adicione um ID único para cada imagem
+  id: string;
   title: string;
   url: string;
   description: string;
@@ -133,7 +133,7 @@ export function EmblaCarousel({
                     className="embla__info"
                     style={{ opacity: showInfo && currentIndex === index ? 1 : 0 }}
                   >
-                    <h3>{image.title}</h3>
+                    <p>{image.title}</p>
                     <p dangerouslySetInnerHTML={{ __html: image.description }} />
                     <button onClick={toggleInfoView} className="embla__info-button">
                       {buttonBackToImage}
