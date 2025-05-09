@@ -1,0 +1,50 @@
+.heroBanner {
+    position: relative;
+    height: 29rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2rem;
+    background-size: cover;
+    background-position: center;
+    color: white;
+}
+
+.brandName {
+    position: absolute;
+    top: 1rem;
+    left: 2rem;
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-family: fantasy;
+    background-image: linear-gradient(90deg, hsl(190, 27%, 65%), rgb(95, 157, 165), rgb(59, 140, 155));
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.contentWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    max-width: 600px;
+}
+
+.heroTitle {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-top: 9rem;
+    color: #fff;
+    margin-left: 3rem;
+    font-family: sans-serif;
+}
+
+.heroSubtitle {
+    font-size: 0.6rem;
+    font-weight: normal;
+    color: #fff;
+    margin-left: 3rem;
+    font-family: sans-serif;
+}
