@@ -170,7 +170,6 @@
     margin-bottom: 3rem;
 }
 
-
 .embla__info .embla__info-button {
     position: absolute;
     left: 10px;
@@ -203,8 +202,10 @@
 
 .embla__discover-button {
     position: absolute;
+    flex-direction: row;
     bottom: 10px;
-    margin-left: 22.3rem;
+    right: 10px;
+    flex-direction: row;
     background-color: rgba(0, 0, 0, 0.6);
     color: white;
     padding: 5px 10px;
