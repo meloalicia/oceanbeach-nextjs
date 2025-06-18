@@ -1,0 +1,8 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false, // Permite a compilação
+    "outDir": "./dist" // Pasta de saída
+  },
+  "include": ["scripts/**/*.ts"]
+}

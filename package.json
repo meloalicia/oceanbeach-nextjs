@@ -6,13 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "get-data": "ts-node scripts/getData.ts"
+    "lint": "next lint"
   },
   "dependencies": {
     "@contentful/rich-text-react-renderer": "^15.22.11",
     "@coreui/coreui": "^5.2.0",
-    "@prisma/client": "^6.8.2",
     "@prisma/extension-accelerate": "^2.0.0",
     "contentful": "^11.3.2",
     "dependi": "^0.5.4",
@@ -31,7 +29,6 @@
     "@types/react-dom": "^18",
     "eslint": "^8",
     "eslint-config-next": "14.2.13",
-    "prisma": "^6.8.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
   }
