@@ -1,7 +1,7 @@
 import { Entry } from "contentful";
+import { getEntry } from "../clients/contentfulClient";
 import ComponentRenderer from "../components/ComponentRenderer";
 import { ContentModelNames } from "../constants/contentful";
-import { getEntry } from "../lib/contentfulClient";
 import { ContentfulDataMapper } from "../mappers/ContentfulDataMapper";
 
 async function getHomePageData() {
