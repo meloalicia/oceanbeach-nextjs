@@ -27,6 +27,8 @@
     "sass": "^1.79.5"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^20.17.52",
     "@types/pg": "^8.15.4",
     "@types/react": "^18",
