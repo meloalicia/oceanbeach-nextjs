@@ -23,7 +23,6 @@ export default async function Home() {
   const homePageData = await getHomePageData();
 
   if (!homePageData || !homePageData.fields || !homePageData.fields.pageBody) {
-    console.error("Dados da página inicial não foram carregados corretamente.");
     return <div>Erro ao carregar os dados da página inicial.</div>;
   }
 
