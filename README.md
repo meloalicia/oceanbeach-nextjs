@@ -1,50 +1,57 @@
- OceanBeach
-O OceanBeach é uma aplicação web onde usuários podem explorar praias e ilhas ao redor do mundo, descobrindo curiosidades, culturas locais e culinária. O projeto busca oferecer uma experiência visual e interativa para os amantes do mar, com foco em performance, organização de código e arquitetura escalável.
+# 🌊 OceanBeach
 
-✨ Tecnologias Utilizadas
-Next.js 14 (App Router) – Renderização SSR e otimização de performance.
+O **OceanBeach** é uma aplicação web que apresenta praias e ilhas ao redor do mundo, com informações sobre cultura, culinária e curiosidades praianas. O projeto busca oferecer uma experiência interativa e visualmente envolvente para quem ama o mar.
 
-TypeScript – Tipagem estática para maior segurança.
+---
 
-Contentful (CMS) – Gestão de conteúdo dinâmica, com uso de DataMapper para transformar os dados.
+## ✨ Tecnologias Utilizadas
 
-Embla Carousel – Carrossel interativo para visualização de imagens.
+- **Next.js 14 (App Router)** – Renderização SSR e estrutura moderna de rotas.
+- **TypeScript** – Tipagem estática e segurança no código.
+- **Contentful CMS** – Gerenciamento de conteúdo dinâmico.
+- **Embla Carousel** – Carrossel leve e interativo.
+- **CSS Modules** – Estilização modular sem uso de frameworks CSS.
+- **PostgreSQL** *(em desenvolvimento)* – Banco de dados relacional para login e favoritos.
 
-CSS Modules – Estilização modular e organizada.
+---
 
-PostgreSQL (planejado) – Banco de dados relacional, ainda em implementação.
+## 📐 Arquitetura do Projeto
 
-🧱 Arquitetura do Projeto
-Componentes agnósticos: os componentes não são acoplados diretamente ao CMS (Contentful), permitindo a troca futura de fornecedor.
+- Componentes React **agnósticos ao CMS**: o conteúdo do Contentful é transformado antes de chegar aos componentes, evitando acoplamento direto.
+- Organização em **camadas separadas**: apresentação, lógica e dados são tratados de forma independente.
+- Uso de **Data Mappers** para converter dados brutos em estruturas amigáveis aos componentes.
+- Integração de **carrossel fluido** com dados dinâmicos.
 
-Separação de responsabilidades: dados, lógica e apresentação organizados em camadas distintas.
+---
 
-Transformação de dados: uso de um DataMapper para adaptar os dados do CMS aos componentes React.
+---
 
-Carrossel fluido: integração do Embla Carousel para navegação por imagens de forma leve e responsiva.
+## 🚧 Status do Projeto
 
-🧩 Principais Desafios
-Integrar o Embla Carousel com os dados dinâmicos do CMS.
+- ✅ Frontend funcional com integração ao CMS  
+- ✅ Conteúdo dinâmico sendo carregado via SSR  
+- 🟡 Backend (API com login e favoritos) em construção  
+- 🟡 Integração com banco de dados PostgreSQL em andamento  
 
-Garantir tipagem estrita com TypeScript para evitar erros inesperados.
+---
 
-Criar uma arquitetura desacoplada e escalável desde o início do projeto.
+## 📌 Próximos Passos
 
-🚧 Status do Projeto
-✅ Integração com Contentful finalizada
-🟡 Frontend em construção
-🟡 Backend (API) em construção
-🟡 Integração com banco de dados PostgreSQL em andamento
+- Criar rotas de API para autenticação e sistema de favoritos  
+- Conectar o banco de dados PostgreSQL ao frontend  
+- Implementar páginas de perfil e gerenciamento de favoritos  
+- Adicionar testes automatizados e melhorias de acessibilidade  
 
-🛣️ Próximos Passos
-Criar rotas de API para autenticação e sistema de favoritos
+---
 
-Implementar persistência de dados com PostgreSQL (sem uso de ORM)
+## 📁 Variáveis de Ambiente
 
-Construir páginas de perfil e favoritos do usuário
+Crie um arquivo `.env` baseado no exemplo abaixo:
 
-Adicionar testes e melhorar acessibilidade
+```env
+# .env.example
+CONTENTFUL_SPACE_ID=seu_space_id
+CONTENTFUL_ACCESS_TOKEN=seu_access_token
+DATABASE_URL=postgresql://usuario:senha@localhost:5432/oceanbeach
 
-🤝 Contribuindo
-Contribuições são bem-vindas! Se você quiser sugerir melhorias, relatar bugs ou enviar PRs, sinta-se à vontade para participar do desenvolvimento.
 
