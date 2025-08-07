@@ -1,36 +1,50 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+ OceanBeach
+O OceanBeach é uma aplicação web onde usuários podem explorar praias e ilhas ao redor do mundo, descobrindo curiosidades, culturas locais e culinária. O projeto busca oferecer uma experiência visual e interativa para os amantes do mar, com foco em performance, organização de código e arquitetura escalável.
 
-## Getting Started
+✨ Tecnologias Utilizadas
+Next.js 14 (App Router) – Renderização SSR e otimização de performance.
 
-First, run the development server:
+TypeScript – Tipagem estática para maior segurança.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Contentful (CMS) – Gestão de conteúdo dinâmica, com uso de DataMapper para transformar os dados.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Embla Carousel – Carrossel interativo para visualização de imagens.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+CSS Modules – Estilização modular e organizada.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+PostgreSQL (planejado) – Banco de dados relacional, ainda em implementação.
 
-## Learn More
+🧱 Arquitetura do Projeto
+Componentes agnósticos: os componentes não são acoplados diretamente ao CMS (Contentful), permitindo a troca futura de fornecedor.
 
-To learn more about Next.js, take a look at the following resources:
+Separação de responsabilidades: dados, lógica e apresentação organizados em camadas distintas.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Transformação de dados: uso de um DataMapper para adaptar os dados do CMS aos componentes React.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Carrossel fluido: integração do Embla Carousel para navegação por imagens de forma leve e responsiva.
 
-## Deploy on Vercel
+🧩 Principais Desafios
+Integrar o Embla Carousel com os dados dinâmicos do CMS.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Garantir tipagem estrita com TypeScript para evitar erros inesperados.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Criar uma arquitetura desacoplada e escalável desde o início do projeto.
+
+🚧 Status do Projeto
+✅ Integração com Contentful finalizada
+🟡 Frontend em construção
+🟡 Backend (API) em construção
+🟡 Integração com banco de dados PostgreSQL em andamento
+
+🛣️ Próximos Passos
+Criar rotas de API para autenticação e sistema de favoritos
+
+Implementar persistência de dados com PostgreSQL (sem uso de ORM)
+
+Construir páginas de perfil e favoritos do usuário
+
+Adicionar testes e melhorar acessibilidade
+
+🤝 Contribuindo
+Contribuições são bem-vindas! Se você quiser sugerir melhorias, relatar bugs ou enviar PRs, sinta-se à vontade para participar do desenvolvimento.
+
