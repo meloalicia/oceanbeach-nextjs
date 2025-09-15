@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🌊 OceanBeach
 
-## Getting Started
+O **OceanBeach** é uma aplicação web que apresenta praias e ilhas ao redor do mundo, com informações sobre cultura, culinária e curiosidades praianas. O projeto busca oferecer uma experiência interativa e visualmente envolvente para quem ama o mar.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## ✨ Tecnologias Utilizadas
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Next.js 14 (App Router)** – Renderização SSR e estrutura moderna de rotas.
+- **TypeScript** – Tipagem estática e segurança no código.
+- **Contentful CMS** – Gerenciamento de conteúdo dinâmico.
+- **Embla Carousel** – Carrossel leve e interativo.
+- **CSS Modules** – Estilização modular sem uso de frameworks CSS.
+- **PostgreSQL** *(em desenvolvimento)* – Banco de dados relacional para login e favoritos.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📐 Arquitetura do Projeto
 
-## Learn More
+- Componentes React **agnósticos ao CMS**: o conteúdo do Contentful é transformado antes de chegar aos componentes, evitando acoplamento direto.
+- Organização em **camadas separadas**: apresentação, lógica e dados são tratados de forma independente.
+- Uso de **Data Mappers** para converter dados brutos em estruturas amigáveis aos componentes.
+- Integração de **carrossel fluido** com dados dinâmicos.
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🚧 Status do Projeto
 
-## Deploy on Vercel
+- ✅ Frontend funcional com integração ao CMS  
+- ✅ Conteúdo dinâmico sendo carregado via SSR  
+- 🟡 Backend (API com login e favoritos) em construção  
+- 🟡 Integração com banco de dados PostgreSQL em andamento  
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📌 Próximos Passos
+
+- Criar rotas de API para autenticação e sistema de favoritos  
+- Conectar o banco de dados PostgreSQL ao frontend  
+- Implementar páginas de perfil e gerenciamento de favoritos  
+- Adicionar testes automatizados e melhorias de acessibilidade  
+
+---
+
+## 📁 Variáveis de Ambiente
+
+Crie um arquivo `.env` baseado no exemplo abaixo:
+
+```env
+# .env.example
+CONTENTFUL_SPACE_ID=seu_space_id
+CONTENTFUL_ACCESS_TOKEN=seu_access_token
+DATABASE_URL=postgresql://usuario:senha@localhost:5432/oceanbeach
+
+
